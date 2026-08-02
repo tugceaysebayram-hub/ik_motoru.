@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stratejik IK Bordro ve Tazminat Motoru</title>
+    
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            background-color: #f5f0e6; /* Yumuşak Krem Arka Plan */
+            color: #2c251e; /* Çok Koyu Belirgin Krem Yazı */
+            font-family: 'Times New Roman', Times, serif; /* Klasik Resmi Yazı Tipi */
+            margin: 0;
+            padding: 20px 20px 60px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .ust-menu {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+        .mevzuat-link-buton {
+            background-color: transparent;
+            color: #2c251e;
+            border: 2px solid #8c7b6e;
+            padding: 8px 16px;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        .mevzuat-link-buton:hover {
+            background-color: #8c7b6e;
+            color: #ffffff;
+        }
+        .konteyner {
+            max-width: 600px;
+            width: 100%;
+            border: 3px solid #8c7b6e; /* Koyu Krem Belirgin Çerçeve */
+            border-radius: 16px; /* Yanları Oval */
+            padding: 40px;
+            background-color: #ffffff;
+            box-shadow: 0px 4px 20px rgba(0,0,0,0.05);
+            box-sizing: border-box;
+            margin-bottom: 40px;
+        }
+        h1 {
+            text-align: center;
+            font-size: 24px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            color: #2c251e;
+        }
+        .alt-baslik {
+            text-align: center;
+            font-size: 14px;
+            color: #594f46;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+        .baslik-cizgisi {
+            width: 80px;
+            height: 2px;
+            background-color: #8c7b6e;
+            margin: 0 auto 30px auto;
+        }
+        .form-grup {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px dashed #d9d2c9;
+            padding-bottom: 10px;
+        }
+        label {
+            font-size: 16px;
+            font-weight: bold;
+            color: #2c251e;
+        }
+        input[type="number"] {
+            width: 150px;
+            padding: 8px 12px;
+            border: 2px solid #8c7b6e;
+            border-radius: 20px; /* Yanları Oval */
+            background-color: #faf8f5;
+            color: #2c251e;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 15px;
+            text-align: right;
+            outline: none;
+        }
+        .hesapla-buton {
+            width: 100%;
+            background-color: #2c251e;
+            color: #f5f0e6;
+            border: 2px solid #2c251e;
+            padding: 14px;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 16px;
+            text-transform: uppercase;
+            font-weight: bold;
+            cursor: pointer;
+            letter-spacing: 2px;
+            border-radius: 25px; /* Yanları Oval */
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+        .hesapla-buton:hover {
+            background-color: #ffffff;
+            color: #2c251e;
+            border-color: #8c7b6e;
+        }
+        .sonuc-kutusu {
+            margin-top: 30px;
+            padding: 20px;
+            border: 2px solid #8c7b6e;
+            border-radius: 12px; /* Yanları Oval */
+            background-color: #faf8f5;
+            font-size: 15px;
+            line-height: 1.6;
+            min-height: 100px;
+            color: #2c251e;
+        }
+        .yasal-bilgi-paneli {
+            max-width: 600px;
+            width: 100%;
+            border: 2px solid #8c7b6e;
+            border-radius: 16px;
+            padding: 30px;
+            background-color: #ffffff;
+            box-sizing: border-box;
+            box-shadow: 0px 4px 20px rgba(0,0,0,0.03);
+            display: none;
+        }
+        .yasal-baslik {
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #8c7b6e;
+            padding-bottom: 5px;
+            color: #2c251e;
+        }
+        .yasal-metin {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #4a4035;
+            text-align: justify;
+            margin-bottom: 15px;
+        }
+        .alt-bilgi {
+            margin-top: 40px;
+            font-size: 11px;
+            color: #7a6f64;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ust-menu">
+        <button class="mevzuat-link-buton" onclick="yasalPaneliAcKapat()">Mevzuat & KVKK Bilgileri</button>
+    </div>
+
+    <div class="konteyner">
+        <h1>Mevzuat Hesaplama</h1>
+        <div class="alt-baslik">IK Gelismis Bordro Analizor</div>
+        <div class="baslik-cizgisi"></div>
+
+        <div class="form-grup">
+            <label for="maas">Brüt Maaş (TL):</label>
+            <input type="number" id="maas" value="40000">
+        </div>
+
+        <div class="form-grup">
+            <label for="gun">Tazminat Kıdem Günü:</label>
+            <input type="number" id="gun" value="1000">
+        </div>
+
+        <div class="form-grup">
+            <label for="mesai">Fazla Mesai (Saat):</label>
+            <input type="number" id="mesai" value="0">
+        </div>
+
+        <div class="form-grup">
+            <label for="ucretsiz">Ücretsiz İzin (Gün):</label>
+            <input type="number" id="ucretsiz" value="0">
+        </div>
+
+        <div class="form-grup">
+            <label for="ucretli">Ücretli/Yıllık İzin (Gün):</label>
+            <input type="number" id="ucretli" value="0">
+        </div>
+
+        <button class="hesapla-buton" onclick="javaMantiginiCalistir()">HESAPLA VE RAPORLA</button>
+
+        <div class="sonuc-kutusu" id="sonucRaporu">
+            Sonuç raporu burada üretilecek.
+        </div>
+
+        <div class="alt-bilgi">
+            CreatedBy | HR | TugceBayram
+        </div>
+    </div>
+
+    <div class="yasal-bilgi-paneli" id="yasalPanel">
+        <div class="yasal-baslik">1. GÜNCEL MEVZUAT BİLGİLERİ</div>
+        <div class="yasal-metin">
+            1475 sayılı İş Kanununun 14. maddesi uyarınca; işçinin kıdem tazminatına hak kazanabilmesi için en az 1 tam yıl çalışmış olması yasal zorunluluktur. Hesaplamalar brüt ücret üzerinden gerçekleştirilir.
+        </div>
+
+        <div class="yasal-baslik">2. KVKK AYDINLATMA METNİ</div>
+        <div class="yasal-metin">
+            6698 sayılı KVKK kapsamında; girdiğiniz bilgiler tamamen geçici veriler olup, hiçbir veri tabanına kaydedilmemekte ve sunucularda depolanmamaktadır.
+        </div>
+
+        <div class="yasal-baslik">3. LİSANS VE YASAL HAKLAR</div>
+        <div class="yasal-metin">
+            Bu web sitesinin kod mimarisi ve hesaplama motoru hakları yasal olarak Tuğçe Bayram'a aittir. Altyapı dizin teknolojileri lisansları Google LLC şirketine aittir.
+        </div>
+    </div>
+
+    <script>
+        function yasalPaneliAcKapat() {
+            var panel = document.getElementById("yasalPanel");
+            if (panel.style.display === "none" || panel.style.display === "") {
+                panel.style.display = "block";
+                setTimeout(function() {
+                    panel.scrollIntoView({ behavior: 'smooth' });
+                }, 50);
+            } else {
+                panel.style.display = "none";
+            }
+        }
+
+        function javaMantiginiCalistir() {
+            var mVal = parseFloat(document.getElementById("maas").value);
+            var gVal = parseInt(document.getElementById("gun").value);
+            var hVal = parseInt(document.getElementById("mesai").value);
+            var cVal = parseInt(document.getElementById("ucretsiz").value);
+            var iVal = parseInt(document.getElementById("ucretli").value);
+            
+            var sKutusu = document.getElementById("sonucRaporu");
+
+            if (isNaN(mVal) || isNaN(gVal) || isNaN(hVal) || isNaN(cVal) || isNaN(iVal)) {
+                sKutusu.innerHTML = "<b>Hata: Lütfen geçerli sayısal değerler giriniz!</b>";
+                return;
+            }
+
+            var au = 33030.00;
+            var tavan = 64948.77;
+            var dv = 0.00759;
+
+            if (mVal < au) {
+                sKutusu.innerHTML = "<b>Hata: Yasal brüt asgari ücretin altında maaş girilemez!</b>";
+                return;
+            }
+            
+            var gBrut = mVal / 30.0;
+            var sBrut = mVal / 225.0; 
+            
+            var tMesai = hVal * (sBrut * 1.5); 
+            var uIzin = cVal * gBrut;
+            var uMaliyet = iVal * gBrut;
+            var topBrut = mVal + tMesai - uIzin;
+            
+            var hMaas = mVal > tavan ? tavan : mVal;
+            
+            var yTaz = Math.floor(gVal / 365) * hMaas;
+            var aTaz = ((gVal % 365) / 365.0) * hMaas;
+            var bTaz = gVal < 365 ? 0 : (yTaz + aTaz);
+            
+            var kDamga = bTaz * dv;
+            var nTaz = bTaz - kDamga;
+            
+            sKutusu.innerHTML = "<b>--- AYLIK BORDRO ANALIZI ---</b><br>" +
+                "Fazla Mesai Kazanci: " + tMesai.toFixed(2) + " TL<br>" +
